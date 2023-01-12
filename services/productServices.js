@@ -31,30 +31,34 @@ class ProductsServices {
     return this.products
   }
 
-  findOne(idProduct) {
+  findOne(id) {
 
-    return this.products.find(item => item.id === idProduct);
+    return this.products.find(item => item.id === id);
 
   }
 
-  update(idProducto, changes) {
-    const index = this.products.findIndex(item => item.id === idProducto)
+  update(id, changes) {
+    const index = this.products.findIndex(item => item.id === id)
     if (index === -1) {
       throw new Error('product not found')
 
     }
-    this.products[index] = changes;
+    const product =  this.products[index]
+    this.products[index] = {
+      ...product,
+      ...changes
+    };
     return this.products[index]
 
   }
 
   delete(id) {
-    const index = this.products.findIndex(item => item.id === idProducto)
+    const index = this.products.findIndex(item => item.id === id)
     if (index === -1) {
       throw new Error('product not found')
-
     }
-    this.products.splice(index, 1) = changes;
+
+    this.products.splice(index, 1);
     return { id };
   }
 }

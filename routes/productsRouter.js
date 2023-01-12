@@ -36,22 +36,17 @@ router.post("/", (req, res) => {
 router.patch("/:id", (req, res) => {
   const { id } = req.params;
   const body = req.body;
+  const product = productService.update(id, body)
 
-  res.json({
-    message: 'update',
-    data: body,
-    id,
-  })
+  res.json(product)
 })
 
 router.delete("/:id", (req, res) => {
 
   const { id } = req.params;
+  const product = productService.delete(id)
 
-  res.json({
-    message: 'Delete',
-    id,
-  })
+  res.json(product)
 })
 
 module.exports = router;
