@@ -43,7 +43,7 @@ class ProductsServices {
       throw new Error('product not found')
 
     }
-    const product =  this.products[index]
+    const product = this.products[index]
     this.products[index] = {
       ...product,
       ...changes
