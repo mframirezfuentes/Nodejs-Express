@@ -39,11 +39,15 @@ router.post("/", async (req, res) => {
 })
 
 router.patch("/:id", async (req, res) => {
-  const { id } = req.params;
-  const body = req.body;
-  const product = await productService.update(id, body)
 
-  res.json(product)
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const product = await productService.update(id, body)
+    res.json(product)
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.delete("/:id", async (req, res) => {
