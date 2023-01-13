@@ -9,42 +9,42 @@ const productService = new ProductsServices();
 //const userService = new UsersServices();
 //const categoriesServices = new CategoriesSercices()
 
-router.get("/", (req, res) => {
-  const products = productService.find();
+router.get("/", async (req, res) => {
+  const products = await productService.find();
   res.json(products)
 })
 router.get("/filter", (req, res) => {
   res.send('Yo soy un filter')
 })
 
-router.get("/:id", (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params
-  const product = productService.findOne(id)
+  const product = await productService.findOne(id)
   res.json(product)
 
 })
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   const body = req.body;
-  const newProduct = productService.create(body)
+  const newProduct = await productService.create(body)
   res.status(201).json({
     message: 'created',
     data: newProduct
   })
 })
 
-router.patch("/:id", (req, res) => {
+router.patch("/:id", async (req, res) => {
   const { id } = req.params;
   const body = req.body;
-  const product = productService.update(id, body)
+  const product = await productService.update(id, body)
 
   res.json(product)
 })
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", async (req, res) => {
 
   const { id } = req.params;
-  const product = productService.delete(id)
+  const product = await productService.delete(id)
 
   res.json(product)
 })
