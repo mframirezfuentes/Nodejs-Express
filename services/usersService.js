@@ -1,31 +1,34 @@
+const boom = require('@hapi/boom');
 
+const getConnection = require('../libs/postgres');
 
-class UsersServices {
-  constructor() {
-    this.users = [];
+class UserService {
+  constructor() {}
 
-  }
-  create() {
-
-  }
-  find() {
-    return this.users;
-
+  async create(data) {
+    return data;
   }
 
-  findOne(idUser) {
-    return this.users.find(item => item.id === idUser)
-
+  async find() {
+    const client = await getConnection();
+    const rta = await client.query('SELECT * FROM tasks');
+    return rta.rows;
   }
 
-  update() {
-
+  async findOne(id) {
+    return { id };
   }
 
-  delete() {
-
+  async update(id, changes) {
+    return {
+      id,
+      changes,
+    };
   }
 
+  async delete(id) {
+    return { id };
+  }
 }
 
-module.exports = UsersServices;
+module.exports = UserService;
