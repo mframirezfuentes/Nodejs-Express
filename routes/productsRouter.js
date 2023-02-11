@@ -8,8 +8,7 @@ const { createProductSchema, updateProductSchema, getProductSchema } = require('
 const router = express.Router();
 //Instacia de las clases
 const productService = new ProductsServices();
-//const userService = new UsersServices();
-//const categoriesServices = new CategoriesSercices()
+
 
 router.get("/", async (req, res) => {
   const products = await productService.find();
