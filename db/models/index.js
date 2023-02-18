@@ -10,6 +10,7 @@ function setupModel(sequelize) {
 
   //iniciamos las asociaciones o relaciones
   Customer.associate(sequelize.models)
+  User.associate(sequelize.models)
 
 }
 
