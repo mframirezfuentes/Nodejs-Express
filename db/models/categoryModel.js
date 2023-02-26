@@ -31,7 +31,7 @@ class Category extends Model {
   //donde se genera la asociación hacia otras tablas
   static associate(models) {
     this.hasMany(models.Product, {
-      as: 'products ',
+      as: 'products',
       foreignKey: 'categoryId'
     })
   }

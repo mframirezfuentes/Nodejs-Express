@@ -25,22 +25,19 @@ class ProductsServices {
   }
 
   async create(data) {
-    const newProduct = {
-      id: faker.datatype.uuid(),
-      ...data
-    }
-    this.products.push(newProduct)
+    const newProduct = await models.Product.create(data)
     return newProduct;
   }
 
   async find() {
-
-    const data = await models.Product.findAll()
-    return data
+    const products = await models.Product.findAll({
+      include: ["category"]
+    })
+    return products
   }
 
   async findOne(id) {
-    const product = this.products.find(item => item.id === id);
+    const product = await models.Product.findByPk(id)
     if (!product) {
       throw boom.notFound('product not found')
     } else {

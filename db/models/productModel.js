@@ -1,7 +1,7 @@
 const { Model, Sequelize, DataTypes } = require('sequelize')
 const { CATEGORY_TABLE } = require('./categoryModel')
 
-const PRODUCT_TABLE = 'products'
+const PRODUCT_TABLE = "products"
 
 const productSchema = {
   id: {
@@ -55,6 +55,4 @@ class Product extends Model {
   }
 
 }
-
-
 module.exports = { PRODUCT_TABLE, productSchema, Product }
