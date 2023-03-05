@@ -2,8 +2,6 @@ const express = require('express')
 const ProductsServices = require('../services/productServices')
 const validatorHandler = require('../middlewares/validatorHandler')
 const { createProductSchema, updateProductSchema, getProductSchema } = require('../schema/productSchema')
-//const UsersServices = require('../services/usersService')
-//const CategoriesSercices = require('../services/categoriesService')
 
 const router = express.Router();
 //Instacia de las clases
@@ -14,9 +12,7 @@ router.get("/", async (req, res) => {
   const products = await productService.find();
   res.json(products)
 })
-router.get("/filter", (req, res) => {
-  res.send('Yo soy un filter')
-})
+
 
 router.get("/:id",
   validatorHandler(getProductSchema, 'params'),
@@ -28,8 +24,6 @@ router.get("/:id",
     } catch (error) {
       next(error)
     }
-
-
   })
 
 router.post("/",

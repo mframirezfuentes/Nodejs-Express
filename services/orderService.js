@@ -1,28 +1,39 @@
 const boom = require('@hapi/boom')
 
+const { models } = require('../libs/sequelize')
+
 class OrderService {
 
-  constructor()
+  constructor() {
 
-  async create(data) {
-    return data
   }
 
-  async find(){
+  async create(data) {
+    const newOrder = await models.Order.create(data);
+    return newOrder;
+  }
+
+  async find() {
     return []
   }
 
-  async findOne(id){
-
-    return {id}
+  async findOne(id) {
+    const order = await models.Order.findByPk(id, {
+      include: [{
+        association: 'customer',
+        include: ['user']
+      }]
+    });
+    return order;
   }
 
-  async update(id, change){
-    return {id, change}
+  async update(id, change) {
+    return { id, change }
   }
 
-  async delete(id){
-    return {id}
+  async delete(id) {
+    return { id }
   }
 
 }
+module.exports = OrderService;
