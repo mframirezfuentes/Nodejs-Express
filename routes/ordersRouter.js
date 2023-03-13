@@ -1,7 +1,7 @@
-const express = require('express')
-const OrderService = require('../services/orderService')
-const validatorHandler = require('../middlewares/validatorHandler')
-const { createOrderSchema, getOrderSchema } = require('../schema/orderSchema')
+const express = require('express');
+const OrderService = require('../services/orderService');
+const validatorHandler = require('../middlewares/validatorHandler');
+const { createOrderSchema, getOrderSchema, addItemSchema } = require('../schema/orderSchema');
 
 const router = express.Router();
 //Instacia de las clases
@@ -18,7 +18,7 @@ router.get("/:id",
     } catch (error) {
       next(error)
     }
-  })
+  });
 
 router.post("/",
   validatorHandler(createOrderSchema, 'body'),
@@ -29,5 +29,18 @@ router.post("/",
       message: 'created',
       data: newOrder
     })
-  })
+  });
+
+  router.post("/add-item",
+  validatorHandler(addItemSchema, 'body'),
+  async (req, res) => {
+    const body = req.body;
+    const newItem = await service.addItem(body)
+    res.status(201).json({
+      message: 'created',
+      data: newItem
+    })
+  });
+
+
 module.exports = router;
