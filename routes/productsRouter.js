@@ -1,17 +1,23 @@
 const express = require('express')
 const ProductsServices = require('../services/productServices')
 const validatorHandler = require('../middlewares/validatorHandler')
-const { createProductSchema, updateProductSchema, getProductSchema } = require('../schema/productSchema')
+const { createProductSchema, updateProductSchema, getProductSchema, queryProductSchema } = require('../schema/productSchema')
 
 const router = express.Router();
 //Instacia de las clases
 const productService = new ProductsServices();
 
-
-router.get("/", async (req, res) => {
-  const products = await productService.find();
-  res.json(products)
-})
+router.get('/',
+  validatorHandler(queryProductSchema, 'query'),
+  async (req, res, next) => {
+    try {
+      const products = await productService.find(req.query);
+      res.json(products);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 
 router.get("/:id",
