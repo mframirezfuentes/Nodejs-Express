@@ -22,7 +22,6 @@ function boomErrorHandler(err, req, res, next) {
   next(err)
 
 }
-
 function ormErrorHandler(err, req, res, next) {
 
   if (err instanceof ValidationError) {
