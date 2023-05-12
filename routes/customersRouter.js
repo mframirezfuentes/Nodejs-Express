@@ -1,5 +1,5 @@
 const express = require('express')
-
+const passport = require('passport')
 const CustomerService = require('../services/customersService')
 const validatorHandler = require('../middlewares/validatorHandler')
 const {
@@ -11,16 +11,19 @@ const {
 const router = express.Router()
 const service = new CustomerService()
 
-router.get("/", async (req, res, next) => {
-  try {
-    res.json(await service.find())
-  } catch (error) {
-    next(error)
-  }
-})
+router.get("/",
+  passport.authenticate('jwt', { session: false }),
+  async (req, res, next) => {
+    try {
+      res.json(await service.find())
+    } catch (error) {
+      next(error)
+    }
+  })
 
 router.post("/",
-validatorHandler(createCustomerSchema, 'body'),
+  passport.authenticate('jwt', { session: false }),
+  validatorHandler(createCustomerSchema, 'body'),
   async (req, res, next) => {
 
     try {
@@ -32,6 +35,7 @@ validatorHandler(createCustomerSchema, 'body'),
   })
 
 router.patch("/:id",
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(updateSchema, 'params'),
   validatorHandler(updateSchema, 'body'),
 
@@ -47,6 +51,7 @@ router.patch("/:id",
 )
 
 router.delete("/",
+  passport.authenticate('jwt', { session: false }),
   validatorHandler(getCustomerSchema, 'params'),
   async (req, res, next) => {
     try {
@@ -58,4 +63,4 @@ router.delete("/",
   }
 )
 
-module.exports= router
+module.exports = router

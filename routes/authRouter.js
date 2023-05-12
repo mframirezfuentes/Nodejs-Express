@@ -3,7 +3,7 @@ const passport = require('passport')
 const jwt = require('jsonwebtoken')
 const {config} = require('../config/config')
 
-const secret = config.jwt
+const secret = config.jwt_scret
 
 
 
