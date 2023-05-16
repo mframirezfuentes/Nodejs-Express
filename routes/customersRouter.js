@@ -12,7 +12,6 @@ const router = express.Router()
 const service = new CustomerService()
 
 router.get("/",
-  passport.authenticate('jwt', { session: false }),
   async (req, res, next) => {
     try {
       res.json(await service.find())
@@ -22,7 +21,6 @@ router.get("/",
   })
 
 router.post("/",
-  passport.authenticate('jwt', { session: false }),
   validatorHandler(createCustomerSchema, 'body'),
   async (req, res, next) => {
 
